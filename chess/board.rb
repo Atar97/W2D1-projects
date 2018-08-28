@@ -21,27 +21,37 @@ class Board
   end 
   
   def [](pos)
-    
     @grid[pos.first][pos.last]
-    
   end
   
   def []=(pos, value)
-    
      @grid[pos.first][pos.last]=value 
-    
-    
   end
   
   def add_piece(piece, pos)
     piece.pos = pos
     self[pos] = piece
-    
   end
   
   def render
     puts self.to_s
   end 
+  
+  private
+   
+  def reset_board
+    
+    
+    
+  end
+  
+  def initial_king 
+    
+  end
+  
+  
+
+  
   
 end 
 

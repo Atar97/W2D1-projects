@@ -4,73 +4,63 @@ class Piece
   attr_accessor :pos
   
   def initialize
-    @symbol = ""
-    @team
     @pos
+    @color
   end 
-  
-  def to_s 
-    @symbol.to_s
+    
+  def set_team(team)
+    @white = true 
   end 
-  
   
 end 
 
 class Rook < Piece 
   
-  def initialize
-    @symbol = :R
+  def to_s
+    "R"
   end 
   
 end 
 
 class Bishop < Piece 
-  def initialize
-    super
-    @symbol = :B
-    
+  def initialize    
   end
+  
+  def to_s
+    "B"
+  end 
   
   
 end 
 
 class Knight < Piece 
-  def initialize
-    super
-    @symbol = :N
-    
-  end
+  def to_s
+    "N"
+  end 
 
 end 
 
 class King < Piece 
-  def initialize
-    super
-    @symbol = :K
-    
-  end
+  def to_s
+    "K"
+  end 
 end 
 
 class Pawn < Piece 
-  def initialize
-    super
-    @symbol = :P
-    
-  end
+  def to_s
+    "p"
+  end 
 end 
 
 class Queen < Piece 
-  def initialize
-    super
-    @symbol = :Q
-    
-  end
+  def to_s
+    "Q"
+  end 
 end 
 
 class NullPiece < Piece 
   include Singleton
-  def initialize
-    @symbol = :_
+  def to_s
+    "_"
   end 
-  
 end 
