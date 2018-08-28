@@ -1,11 +1,13 @@
 require "singleton"
-
+require_relative 'slideable'
+require_relative 'board'
 class Piece
-  attr_accessor :pos , :color
+  attr_accessor :pos, :board
+  attr_reader :color
   
-  def initialize(board = nil)
-    @pos
-    @color
+  def initialize(board = nil, pos = nil)
+    @pos = pos
+    @color = :black
     @board = board
   end 
     
@@ -25,6 +27,8 @@ class Piece
 end 
 
 class Rook < Piece 
+  
+  include Slideable
   
   def to_s
     "R"
@@ -67,7 +71,12 @@ class Queen < Piece
 end 
 
 class NullPiece < Piece 
+  
   include Singleton
+  
+  def initialize
+    @color = nil
+  end 
   def null?
     true 
     
@@ -75,4 +84,13 @@ class NullPiece < Piece
   def to_s
     " "
   end 
+end 
+
+if __FILE__== $PROGRAM_NAME
+  b = Board.new
+  rook = Rook.new(b, [4,4])
+  b.add_piece(rook, [4,4])
+  puts b.render
+  p rook.moves
+  
 end 

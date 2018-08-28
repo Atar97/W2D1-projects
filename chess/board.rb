@@ -59,11 +59,6 @@ class Board
       add_piece(piece.new(self), [0, idx])
       add_piece(piece.new(self), [7, idx])
     end 
-    # @grid.each_with_index do |x,i|
-    #   x.each_with_index do |y,j|
-    #     add_piece(Pawn.new(self),[i,j]) if i==1 || i== 6
-    #   end 
-    # end 
     
     for i in (0..7) do 
       add_piece(Pawn.new(self), [1,i])
@@ -71,7 +66,6 @@ class Board
     end 
     set_color
       
-    # for i in (0)
   end
   def move_piece(start,final)
     raise "start is outside board" if @grid[start.first].nil? || @grid[start.first][start.last].nil?
@@ -89,7 +83,6 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   b = Board.new 
-  # b.add_piece(King.new,[0,0])
   puts b.render([4,4])
 
 end 
