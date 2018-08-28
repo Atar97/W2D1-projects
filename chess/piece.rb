@@ -3,13 +3,14 @@ require "singleton"
 class Piece
   attr_accessor :pos
   
-  def initialize
+  def initialize(board = nil)
     @pos
     @color
+    @board = board
   end 
     
-  def set_team(team)
-    @white = true 
+  def set_color(color)
+    @color = color 
   end 
   
 end 
@@ -23,8 +24,6 @@ class Rook < Piece
 end 
 
 class Bishop < Piece 
-  def initialize    
-  end
   
   def to_s
     "B"

@@ -4,6 +4,7 @@ class Board
   def initialize
     @sentinal = NullPiece.instance
     @grid = Array.new(8) {Array.new(8) {@sentinal}}
+    self.reset_board
   end
   
   def to_s 
@@ -37,27 +38,25 @@ class Board
     puts self.to_s
   end 
   
-  private
+  
    
   def reset_board
-    
-    
-    
+    pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
+    pieces.each_with_index do |piece, idx| 
+      add_piece(piece.new(self), [0, idx])
+      add_piece(piece.new(self), [7, idx])
+    end 
+    # for i in (0)
   end
-  
-  def initial_king 
-    
-  end
-  
-  
 
+  
   
   
 end 
 
 if __FILE__ == $PROGRAM_NAME
   b = Board.new 
-  b.add_piece(King.new,[0,0])
+  # b.add_piece(King.new,[0,0])
   b.render
   
 end 
