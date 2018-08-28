@@ -27,9 +27,7 @@ module Slideable
   
   private 
   
-  def move_dirs
-    HORIZONTAL_DIRS + DIAGONAL_DIRS
-  end 
+  
   
   def grow_unblocked_moves_in_dir(directions)
     # byebug

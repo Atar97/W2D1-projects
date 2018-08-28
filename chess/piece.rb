@@ -1,6 +1,7 @@
 require "singleton"
 require_relative 'slideable'
 require_relative 'board'
+require_relative 'stepable'
 class Piece
   attr_accessor :pos, :board
   attr_reader :color
@@ -30,45 +31,71 @@ class Rook < Piece
   
   include Slideable
   
+  def moves 
+    horizontal_dirs
+  end 
+  
   def to_s
-    "R"
+    "♖"
   end 
   
 end 
 
 class Bishop < Piece 
   
+  include Slideable
+  
+  def moves 
+    diagonal_dirs
+  end 
+  
   def to_s
-    "B"
+    "♗"
   end 
   
   
 end 
 
-class Knight < Piece 
+class Queen < Piece 
+  
+  include Slideable
+  
   def to_s
-    "N"
+    "♕"
+  end 
+  
+end 
+
+class Knight < Piece 
+  
+  include Stepable
+  
+  def to_s
+    "♘"
   end 
 
 end 
 
 class King < Piece 
+  
+  
+  include Stepable
   def to_s
-    "K"
+    "♔"
   end 
+  
+  
 end 
 
 class Pawn < Piece 
+  
   def to_s
-    "p"
-  end 
+    "♙"
+  end
+  
+  
 end 
 
-class Queen < Piece 
-  def to_s
-    "Q"
-  end 
-end 
 
 class NullPiece < Piece 
   
@@ -90,7 +117,11 @@ if __FILE__== $PROGRAM_NAME
   b = Board.new
   rook = Rook.new(b, [4,4])
   b.add_piece(rook, [4,4])
+  knight = King.new(b)
+  knight.set_color(:black)
+  b.add_piece(knight, [2,7])
   puts b.render
-  p rook.moves
+  # p rook.moves
+  p knight.moves
   
 end 
