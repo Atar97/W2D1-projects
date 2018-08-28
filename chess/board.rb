@@ -9,13 +9,17 @@ class Board
     self.reset_board
   end
   
-  def to_s 
+  def to_s(cursor_pos = nil)
     ret = ""
     @grid.each_with_index do |row, rowi|
       row.each_with_index do |piece, idx|
         back = (rowi + idx).even? ? :light_white : :light_black
         piece_str = piece.to_s.colorize(:color => piece.color)
-        ret << " #{piece_str} ".colorize(:background => back)
+        if cursor_pos && cursor_pos == [rowi, idx] 
+          ret << " #{piece_str} ".colorize(:background => :red) 
+        else 
+          ret << " #{piece_str} ".colorize(:background => back) 
+        end 
         ret << "\n"if idx == row.length - 1
       end 
     end 
@@ -35,21 +39,20 @@ class Board
     self[pos] = piece
   end
   
-  def render
-    puts self.to_s
+  def render(cursor_pos = nil)
+    to_s(cursor_pos)
   end 
   
   
-   def set_color
-     for i in (0..7)
+  def set_color
+    for i in (0..7)
        self[[0,i]].set_color(:black)
        self[[1,i]].set_color(:black)
        self[[6,i]].set_color(:cyan)
        self[[7,i]].set_color(:cyan)
-     end 
-       
-     
-   end
+    end 
+  end
+   
   def reset_board
     pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
     pieces.each_with_index do |piece, idx| 
@@ -63,8 +66,8 @@ class Board
     # end 
     
     for i in (0..7) do 
-      self[[1,i]] = Pawn.new(self)
-      self[[6,i]] = Pawn.new(self)
+      add_piece(Pawn.new(self), [1,i])
+      add_piece(Pawn.new(self), [6,i])
     end 
     set_color
       
@@ -87,6 +90,6 @@ end
 if __FILE__ == $PROGRAM_NAME
   b = Board.new 
   # b.add_piece(King.new,[0,0])
-  b.render
-  
+  puts b.render([4,4])
+
 end 

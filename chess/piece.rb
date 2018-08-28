@@ -12,6 +12,11 @@ class Piece
   def set_color(color)
     @color = color 
   end 
+  
+  def moves 
+    
+  end 
+  
   def null?
     false
     
