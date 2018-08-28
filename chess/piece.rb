@@ -1,7 +1,7 @@
 require "singleton"
 
 class Piece
-  attr_accessor :pos
+  attr_accessor :pos , :color
   
   def initialize(board = nil)
     @pos
@@ -12,6 +12,10 @@ class Piece
   def set_color(color)
     @color = color 
   end 
+  def null?
+    false
+    
+  end
   
 end 
 
@@ -59,7 +63,11 @@ end
 
 class NullPiece < Piece 
   include Singleton
+  def null?
+    true 
+    
+  end
   def to_s
-    "_"
+    " "
   end 
 end 
