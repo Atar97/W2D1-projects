@@ -11,7 +11,7 @@ class Piece
     @color = :black
     @board = board
   end 
-    
+  
   def set_color(color)
     @color = color 
   end 
@@ -73,7 +73,7 @@ class Knight < Piece
   def to_s
     "♘"
   end 
-
+  
 end 
 
 class King < Piece 
@@ -93,6 +93,65 @@ class Pawn < Piece
     "♙"
   end
   
+
+  
+  
+  def moves
+    result= forward_steps
+    side=side_attacks
+    side.each do |x|
+      if @board[x].color == self.color || @board[x].null?
+      else 
+        result << x 
+      end 
+    end 
+    result.select{|x| @board[x].null?}
+  
+    
+  end
+  
+  private
+  def on_board?(pos)
+    (0..7).to_a.include?(pos[0]) && (0..7).to_a.include?(pos[1])
+  end 
+  
+  def at_start_row?
+    if self.color == :black 
+      self.pos[0]==1 
+    else 
+      self.pos[0]==6 
+    end 
+    
+    
+  end
+  
+  def foward_dir
+    if self.color == :black 
+      1
+    else 
+      -1 
+    end 
+  end
+  
+  def forward_steps
+    result = [[self.pos[0]+foward_dir, self.pos[1]] ]
+    
+    
+    result << [self.pos[0]+foward_dir*2, self.pos[1]]   if at_start_row?
+     
+    result.select{|x| on_board?(x)}
+    
+    
+    
+  end
+  
+  def side_attacks
+    result=[[self.pos[0]+foward_dir, self.pos[1]-1]]
+    result+=[[self.pos[0]+foward_dir, self.pos[1]+1]]
+    result.select{|x| on_board?(x)}
+    
+    
+  end
   
 end 
 
@@ -120,8 +179,10 @@ if __FILE__== $PROGRAM_NAME
   knight = King.new(b)
   knight.set_color(:black)
   b.add_piece(knight, [2,7])
+  p b[[6,5]].moves
   puts b.render
-  # p rook.moves
-  p knight.moves
+
+  
+  
   
 end 
